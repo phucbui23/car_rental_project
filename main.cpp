@@ -10,13 +10,13 @@
 #include "company2.h"
 
 int main(){
-    CarRentalManagement *theCompany = new CarRentalManagement();
-    //Convertible testCar = Convertible();
-    Convertible newConv1 = Convertible();
-    newConv1.model = "DSA";
-    newConv1.plate = "329HDS";
+    // CarRentalManagement *theCompany = new CarRentalManagement();
+    // //Convertible testCar = Convertible();
+    // Convertible newConv1 = Convertible();
+    // newConv1.model = "DSA";
+    // newConv1.plate = "329HDS";
 
-    theCompany->convertibleFleet->add(newConv1);
+    //theCompany->convertibleFleet->add(newConv1);
     //cout << theCompany->convertibleFleet->length();
     //theCompany->addConv(theCompany);
     // theCompany->printFleet();
@@ -24,5 +24,9 @@ int main(){
 
     //LList<Convertible> *newFleet = new LList<Convertible>();
     //cout << newFleet->isEmpty();
+
+
+    LList<int> list;
+    cout << list.size;
     return 0;
 };

@@ -5,39 +5,41 @@ using namespace std;
 
 template <typename T> 
 class Node {
-public:
+private:
     T data;
-    Node<T> *next;
+public:
+    Node *next;
 
 public:
-    Node(/*Node<T> *next, Node<T> *prev*/) {
+    Node() {
         next = nullptr;
     };
-    Node(T &data, Node<T> *next) {
+    Node(T data, Node *next) {
         this->data = data;
         this->next = next;
     };
     ~Node(){};
 
-    void setData(T data) {
-        this->data = data;
-    }
+    // void setData(T data) {
+    //     this->data = data;
+    // }
 
 };
 
 template <typename T> 
 class LList {
-private:
+public:
+    class Node;
     int size;
 public:
-    Node<T> *head;
-    Node<T> *tail;
+    Node *head;
+    Node *tail;
 
     //public:
 public:
     LList() {
-        size = 0;
-        head = tail = nullptr;
+        this->size = 0;
+        this->head = this->tail = nullptr;
     };
     ~LList(){};
 
@@ -50,24 +52,27 @@ public:
     }
 
     void add(T &data) {
-        if (length() == 0) {
-            head = tail = new Node<T>;
-            head->setData(data);
-        } else {
-            Node<T> *newNode = new Node<T>();
-            newNode->setData(data);
-            tail->next = newNode;
-            tail = newNode;
+        if (isEmpty()) {
+            Node *newNode = new Node(data, nullptr);
+            this->head = newNode;
+            this->tail = newNode;
+            this->size++;
+            return;
         }
-        size++;
+
+        Node *newNode = new Node(data, nullptr);
+        this->tail->next = newNode;
+        this->tail = newNode;
+        this->size++;
+        return;
     }
 
     T headData() {
-        return head->data;
+        return this->head->data;
     }
 
     T tailData() {
-        return tail->data;
+        return this->tail->data;
     }
 };
 
@@ -78,10 +83,8 @@ class Vehicle {
     int mileage, sits, price;
     bool status; //1 if available, else 0
 
-    public:
-
-    Vehicle(){};
-    ~Vehicle(){};
+    // Vehicle(){};
+    // ~Vehicle(){};
     //Inheritance and Composition
     virtual bool serviceEngine() = 0;
     virtual bool serviceTransmission() = 0;
@@ -89,28 +92,29 @@ class Vehicle {
 };
 
 //INHERITE CLASSES
-class Convertible : public Vehicle {
+class Convertible : Vehicle {
     public:
     Convertible() {
         type = "Convertible";
         status = true;
     };
+
     ~Convertible(){};
     
     bool serviceEngine() {
-        if (mileage > 1000) {
+        if (this->mileage > 1000) {
             cout << "This car has run more than 1000km! Need to change oil.";
         }
         return true;
     };
     bool serviceTransmission() {
-        if (mileage > 1000) {
+        if (this->mileage > 1000) {
             cout << "This car has run more than 1000km! Need to change fluid.";
         }
         return true;
     };
     bool serviceTires() {
-        if (mileage > 1000) {
+        if (this->mileage > 1000) {
             cout << "This car has run more than 1000km! Need to change tires.";
         }
         return true;
@@ -118,50 +122,50 @@ class Convertible : public Vehicle {
 
 };
 
-class Sedan : public Vehicle { 
+class Sedan : Vehicle { 
     public:
     Sedan(){};
     ~Sedan(){};
 
     bool serviceEngine() {
-        if (mileage > 1000) {
+        if (this->mileage > 1000) {
             cout << "This car has run more than 1000km! Need to change oil.";
         }
         return true;
     };
     bool serviceTransmission() {
-        if (mileage > 1000) {
+        if (this->mileage > 1000) {
             cout << "This car has run more than 1000km! Need to change fluid.";
         }
         return true;
     };
     bool serviceTires() {
-        if (mileage > 1000) {
+        if (this->mileage > 1000) {
             cout << "This car has run more than 1000km! Need to change tires.";
         }
         return true;
     };
 };
 
-class SUV : public Vehicle {  
+class SUV : Vehicle {  
     public:
     SUV(){};
     ~SUV(){};
 
     bool serviceEngine() {
-        if (mileage > 1000) {
+        if (this->mileage > 1000) {
             cout << "This car has run more than 1000km! Need to change oil.";
         }
         return true;
     };
     bool serviceTransmission() {
-        if (mileage > 1000) {
+        if (this->mileage > 1000) {
             cout << "This car has run more than 1000km! Need to change fluid.";
         }
         return true;
     };
     bool serviceTires() {
-        if (mileage > 1000) {
+        if (this->mileage > 1000) {
             cout << "This car has run more than 1000km! Need to change tires.";
         }
         return true;
@@ -240,7 +244,7 @@ public:
 };
 
 class CarRentalManagement {
-    private:
+    public:
     LList<Convertible> *convertibleFleet;
     LList<Sedan> *sedanFleet;
     LList<SUV> *suvFleet;
@@ -261,7 +265,6 @@ class CarRentalManagement {
 
     //iterates through all vehicles it manages to check if the cars need service
     void serviceFleet();
-
     void printAllContract();
 };
 
@@ -284,173 +287,173 @@ CarRentalManagement::~CarRentalManagement() {
     //delete contractList;
 }
 
-void CarRentalManagement::addConv(CarRentalManagement *company) { 
-    Convertible newConv1 = Convertible();
-    newConv1.model = "DSA";
-    newConv1.plate = "329HDS";
+// void CarRentalManagement::addConv(CarRentalManagement *company) { 
+//     Convertible newConv1 = Convertible();
+//     newConv1.model = "DSA";
+//     newConv1.plate = "329HDS";
 
-    newConv1.mileage = rand() % 5000 + 0;
-    newConv1.sits = rand() % 7 + 4;
-    newConv1.price = rand() % 500 + 150;
+//     newConv1.mileage = rand() % 5000 + 0;
+//     newConv1.sits = rand() % 7 + 4;
+//     newConv1.price = rand() % 500 + 150;
 
-    Convertible newConv2 = Convertible();
-    newConv2.model = "CA";
-    newConv2.plate = "239HAN";
+//     Convertible newConv2 = Convertible();
+//     newConv2.model = "CA";
+//     newConv2.plate = "239HAN";
 
-    newConv2.mileage = rand() % 5000 + 0;
-    newConv2.sits = rand() % 7 + 4;
-    newConv2.price = rand() % 500 + 150;
+//     newConv2.mileage = rand() % 5000 + 0;
+//     newConv2.sits = rand() % 7 + 4;
+//     newConv2.price = rand() % 500 + 150;
 
-    Convertible newConv3 = Convertible();
-    newConv3.model = "PPL";
-    newConv3.plate = "902PLJ";
+//     Convertible newConv3 = Convertible();
+//     newConv3.model = "PPL";
+//     newConv3.plate = "902PLJ";
 
-    newConv3.mileage = rand() % 5000 + 0;
-    newConv3.sits = rand() % 7 + 4;
-    newConv3.price = rand() % 500 + 150;
+//     newConv3.mileage = rand() % 5000 + 0;
+//     newConv3.sits = rand() % 7 + 4;
+//     newConv3.price = rand() % 500 + 150;
 
-    Convertible newConv4 = Convertible();
-    newConv4.model = "PGF";
-    newConv4.plate = "678HIG";
+//     Convertible newConv4 = Convertible();
+//     newConv4.model = "PGF";
+//     newConv4.plate = "678HIG";
 
-    newConv4.mileage = rand() % 5000 + 0;
-    newConv4.sits = rand() % 7 + 4;
-    newConv4.price = rand() % 500 + 150;
+//     newConv4.mileage = rand() % 5000 + 0;
+//     newConv4.sits = rand() % 7 + 4;
+//     newConv4.price = rand() % 500 + 150;
 
-    Convertible newConv5 = Convertible();
-    newConv5.model = "SPE";
-    newConv5.plate = "778GYH";
+//     Convertible newConv5 = Convertible();
+//     newConv5.model = "SPE";
+//     newConv5.plate = "778GYH";
 
-    newConv5.mileage = rand() % 5000 + 0;
-    newConv5.sits = rand() % 7 + 4;
-    newConv5.price = rand() % 500 + 150;
+//     newConv5.mileage = rand() % 5000 + 0;
+//     newConv5.sits = rand() % 7 + 4;
+//     newConv5.price = rand() % 500 + 150;
 
-    company->convertibleFleet->add(newConv1);
-    company->convertibleFleet->add(newConv2);
-    company->convertibleFleet->add(newConv3);
-    company->convertibleFleet->add(newConv4);
-    company->convertibleFleet->add(newConv5);
-}; //Add 5 Convertibles to the fleet
+//     company->convertibleFleet->add(newConv1);
+//     company->convertibleFleet->add(newConv2);
+//     company->convertibleFleet->add(newConv3);
+//     company->convertibleFleet->add(newConv4);
+//     company->convertibleFleet->add(newConv5);
+// }; //Add 5 Convertibles to the fleet
 
-void CarRentalManagement::printFleet() {
-    int choice;
-    cout << "Choose the fleet you want to see!\n1. Convertible\n2. Sedan\n3. SUV\n" << endl;
-    cout << "Input: "; cin >> choice;
+// void CarRentalManagement::printFleet() {
+//     int choice;
+//     cout << "Choose the fleet you want to see!\n1. Convertible\n2. Sedan\n3. SUV\n" << endl;
+//     cout << "Input: "; cin >> choice;
 
-    switch (choice) {
-        case 1: 
-        {
-            cout << "This is a Convertible Fleet!\n";
-            cout << "============================\n"; 
-            cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
+//     switch (choice) {
+//         case 1: 
+//         {
+//             cout << "This is a Convertible Fleet!\n";
+//             cout << "============================\n"; 
+//             cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
 
-            Node<Convertible> *tmp = convertibleFleet->head;
-            int i = 1;
-            while(tmp->next != NULL) {
-                cout << i << "\t" << tmp->data.model << "\t" << tmp->data.plate 
-                    << "\t" << tmp->data.mileage << "\t" << tmp->data.sits << "\t" << tmp->data.price;
-                if(tmp->data.status == true) {
-                    cout << "\tAvailable" << endl;
-                } else cout << "\tNot Available" << endl;
+//             Node<Convertible> *tmp = convertibleFleet->head;
+//             int i = 1;
+//             while(tmp->next != NULL) {
+//                 cout << i << "\t" << tmp->data.model << "\t" << tmp->data.plate 
+//                     << "\t" << tmp->data.mileage << "\t" << tmp->data.sits << "\t" << tmp->data.price;
+//                 if(tmp->data.status == true) {
+//                     cout << "\tAvailable" << endl;
+//                 } else cout << "\tNot Available" << endl;
 
-                tmp = tmp->next; i++;
-            }
-            break;
-        }
-        case 2:
-        {
-            cout << "This is a Sedan Fleet!\n";
-            cout << "============================\n"; 
-            cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
-            Node<Sedan> *tmp = sedanFleet->head;
-            int i = 0;
-            while(tmp->next != NULL) {
-                cout << i << "\t" << tmp->data.model << "\t" << tmp->data.plate 
-                    << "\t" << tmp->data.mileage << "\t" << tmp->data.sits << "\t" << tmp->data.price;
-                if(tmp->data.status == true) {
-                    cout << "\tAvailable" << endl;
-                } else cout << "\tNot Available" << endl;
-                tmp = tmp->next; i++;
-            }
-            break;
-        }
-        case 3: 
-        {
-            cout << "This is a SUV Fleet!\n";
-            cout << "============================\n"; 
-            cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
-            Node<SUV> *tmp = suvFleet->head;
-            int i = 1;
-            while(tmp->next != NULL) {
-                cout << i << "\t" << tmp->data.model << "\t" << tmp->data.plate 
-                    << "\t" << tmp->data.mileage << "\t" << tmp->data.sits << "\t" << tmp->data.price;
-                if(tmp->data.status == true) {
-                    cout << "\tAvailable" << endl;
-                } else cout << "\tNot Available" << endl;
-                tmp = tmp->next; i++;
-            }
-            break;
-        } 
-    }
-};
+//                 tmp = tmp->next; i++;
+//             }
+//             break;
+//         }
+//         case 2:
+//         {
+//             cout << "This is a Sedan Fleet!\n";
+//             cout << "============================\n"; 
+//             cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
+//             Node<Sedan> *tmp = sedanFleet->head;
+//             int i = 0;
+//             while(tmp->next != NULL) {
+//                 cout << i << "\t" << tmp->data.model << "\t" << tmp->data.plate 
+//                     << "\t" << tmp->data.mileage << "\t" << tmp->data.sits << "\t" << tmp->data.price;
+//                 if(tmp->data.status == true) {
+//                     cout << "\tAvailable" << endl;
+//                 } else cout << "\tNot Available" << endl;
+//                 tmp = tmp->next; i++;
+//             }
+//             break;
+//         }
+//         case 3: 
+//         {
+//             cout << "This is a SUV Fleet!\n";
+//             cout << "============================\n"; 
+//             cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
+//             Node<SUV> *tmp = suvFleet->head;
+//             int i = 1;
+//             while(tmp->next != NULL) {
+//                 cout << i << "\t" << tmp->data.model << "\t" << tmp->data.plate 
+//                     << "\t" << tmp->data.mileage << "\t" << tmp->data.sits << "\t" << tmp->data.price;
+//                 if(tmp->data.status == true) {
+//                     cout << "\tAvailable" << endl;
+//                 } else cout << "\tNot Available" << endl;
+//                 tmp = tmp->next; i++;
+//             }
+//             break;
+//         } 
+//     }
+// };
 
-void CarRentalManagement::serviceFleet() {
-    Node<Convertible> *tmp = convertibleFleet->head;
-    cout << "Checking Convertible fleet...\n";
-    for (int i = 0; i < convertibleFleet->length(); i++) {
-        if(tmp->data.serviceEngine() == true) {
-            cout << "Car " << tmp->data.plate << " has been maintained.\n";
-            tmp->data.mileage = 0;
-        }
-        if(tmp->data.serviceTransmission() == true) {
-            cout << "Car " << tmp->data.plate << " has been maintained.\n";
-            tmp->data.mileage = 0;
-        }
-        if(tmp->data.serviceTires() == true) {
-            cout << "Car " << tmp->data.plate << " has been maintained.\n";
-            tmp->data.mileage = 0;
-        }
-        tmp = tmp->next;
-    }
-    cout << "Done check Convertible fleet...\n";
+// void CarRentalManagement::serviceFleet() {
+//     Node<Convertible> *tmp = convertibleFleet->head;
+//     cout << "Checking Convertible fleet...\n";
+//     for (int i = 0; i < convertibleFleet->length(); i++) {
+//         if(tmp->data.serviceEngine() == true) {
+//             cout << "Car " << tmp->data.plate << " has been maintained.\n";
+//             tmp->data.mileage = 0;
+//         }
+//         if(tmp->data.serviceTransmission() == true) {
+//             cout << "Car " << tmp->data.plate << " has been maintained.\n";
+//             tmp->data.mileage = 0;
+//         }
+//         if(tmp->data.serviceTires() == true) {
+//             cout << "Car " << tmp->data.plate << " has been maintained.\n";
+//             tmp->data.mileage = 0;
+//         }
+//         tmp = tmp->next;
+//     }
+//     cout << "Done check Convertible fleet...\n";
 
-    Node<Sedan> *tmp_2 = sedanFleet->head;
-    cout << "Checking Sedan fleet...\n";
-    for (int i = 0; i < sedanFleet->length(); i++) {
-        if(tmp_2->data.serviceEngine() == true) {
-            cout << "Car " << tmp_2->data.plate << " has been maintained.\n";
-            tmp_2->data.mileage = 0;
-        }
-        if(tmp_2->data.serviceTransmission() == true) {
-            cout << "Car " << tmp_2->data.plate << " has been maintained.\n";
-            tmp_2->data.mileage = 0;
-        }
-        if(tmp_2->data.serviceTires() == true) {
-            cout << "Car " << tmp_2->data.plate << " has been maintained.\n";
-            tmp_2->data.mileage = 0;
-        }
-        tmp_2 = tmp_2->next;
-    }
-    cout << "Done check Sedan fleet...\n";
+//     Node<Sedan> *tmp_2 = sedanFleet->head;
+//     cout << "Checking Sedan fleet...\n";
+//     for (int i = 0; i < sedanFleet->length(); i++) {
+//         if(tmp_2->data.serviceEngine() == true) {
+//             cout << "Car " << tmp_2->data.plate << " has been maintained.\n";
+//             tmp_2->data.mileage = 0;
+//         }
+//         if(tmp_2->data.serviceTransmission() == true) {
+//             cout << "Car " << tmp_2->data.plate << " has been maintained.\n";
+//             tmp_2->data.mileage = 0;
+//         }
+//         if(tmp_2->data.serviceTires() == true) {
+//             cout << "Car " << tmp_2->data.plate << " has been maintained.\n";
+//             tmp_2->data.mileage = 0;
+//         }
+//         tmp_2 = tmp_2->next;
+//     }
+//     cout << "Done check Sedan fleet...\n";
 
-    Node<SUV> *tmp_3 = suvFleet->head;
-    cout << "Checking SUV fleet...\n";
-    for (int i = 0; i < suvFleet->length(); i++) {
-        if(tmp_3->data.serviceEngine() == true) {
-            cout << "Car " << tmp_3->data.plate << " has been maintained.\n";
-            tmp_3->data.mileage = 0;
-        }
-        if(tmp_3->data.serviceTransmission() == true) {
-            cout << "Car " << tmp_3->data.plate << " has been maintained.\n";
-            tmp_3->data.mileage = 0;
-        }
-        if(tmp_3->data.serviceTires() == true) {
-            cout << "Car " << tmp_3->data.plate << " has been maintained.\n";
-            tmp_3->data.mileage = 0;
-        }
-        tmp_3 = tmp_3->next;
-    }
-    cout << "Done check SUV fleet...\n";
-};
+//     Node<SUV> *tmp_3 = suvFleet->head;
+//     cout << "Checking SUV fleet...\n";
+//     for (int i = 0; i < suvFleet->length(); i++) {
+//         if(tmp_3->data.serviceEngine() == true) {
+//             cout << "Car " << tmp_3->data.plate << " has been maintained.\n";
+//             tmp_3->data.mileage = 0;
+//         }
+//         if(tmp_3->data.serviceTransmission() == true) {
+//             cout << "Car " << tmp_3->data.plate << " has been maintained.\n";
+//             tmp_3->data.mileage = 0;
+//         }
+//         if(tmp_3->data.serviceTires() == true) {
+//             cout << "Car " << tmp_3->data.plate << " has been maintained.\n";
+//             tmp_3->data.mileage = 0;
+//         }
+//         tmp_3 = tmp_3->next;
+//     }
+//     cout << "Done check SUV fleet...\n";
+// };
 
 #endif
