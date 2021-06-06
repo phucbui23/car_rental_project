@@ -28,5 +28,10 @@ int main(){
 
     LList<int> list;
     cout << list.size;
+    LList<Convertible> con;
+    cout << con.size;
+
+    CarRentalManagement carRent;
+    cout << carRent.convertibleFleet->isEmpty(); 
     return 0;
 };

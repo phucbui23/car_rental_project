@@ -31,7 +31,6 @@ class LList {
 public:
     class Node;
     int size;
-public:
     Node *head;
     Node *tail;
 
@@ -269,14 +268,11 @@ class CarRentalManagement {
 };
 
 CarRentalManagement::CarRentalManagement() {
-    // LList<Convertible> *convertibleFleet = new LList<Convertible>();
-    // LList<Sedan> *sedanFleet = new LList<Sedan>();
-    // LList<SUV> *suvFleet = new LList<SUV>();
-    convertibleFleet = nullptr;
-    sedanFleet = nullptr;
-    suvFleet  =  nullptr;
-    //customerList = nullptr;
-    //contractList = nullptr;
+    convertibleFleet = new LList<Convertible>();
+    sedanFleet = new LList<Sedan>();
+    suvFleet = new LList<SUV>();
+    //customerList = new LList<Customer>();
+    //contractList = new LList<RentalContract>();
 }
 
 CarRentalManagement::~CarRentalManagement() {
