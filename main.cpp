@@ -26,12 +26,16 @@ int main(){
     //cout << newFleet->isEmpty();
 
 
-    LList<int> list;
-    cout << list.size;
-    LList<Convertible> con;
-    cout << con.size;
+    // LList<int> list;
+    // cout << list.size;
+    // LList<Convertible> con;
+    // cout << con.size;
 
     CarRentalManagement carRent;
-    cout << carRent.convertibleFleet->isEmpty(); 
+    cout << carRent.totalVehicle() << endl; 
+
+    carRent.addConv();
+    
+
     return 0;
 };
