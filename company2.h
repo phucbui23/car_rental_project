@@ -332,15 +332,25 @@ void CarRentalManagement::printFleet() {
             LList<Convertible>::Node *tmp = new LList<Convertible>::Node(); 
             tmp = convertibleFleet->head;
 
-            int i = 1;
-            while(tmp->next != NULL) {
-                cout << i << "\t" << tmp->getData().model << "\t" << tmp->getData().plate 
+            // int i = 1;
+            // while(tmp->next != NULL) {
+            //     cout << i << "\t" << tmp->getData().model << "\t" << tmp->getData().plate 
+            //         << "\t" << tmp->getData().mileage << "\t" << tmp->getData().sits << "\t" << tmp->getData().price;
+            //     if(tmp->getData().status == true) {
+            //         cout << "\tAvailable" << endl;
+            //     } else cout << "\tNot Available" << endl;
+
+            //     tmp = tmp->next; i++;
+            // }
+
+            for(int i = 0; i < convertibleFleet->size; i++) {
+                cout << i+1 << "\t" << tmp->getData().model << "\t" << tmp->getData().plate 
                     << "\t" << tmp->getData().mileage << "\t" << tmp->getData().sits << "\t" << tmp->getData().price;
                 if(tmp->getData().status == true) {
                     cout << "\tAvailable" << endl;
                 } else cout << "\tNot Available" << endl;
 
-                tmp = tmp->next; i++;
+                tmp = tmp->next;
             }
             break;
         }
@@ -351,15 +361,25 @@ void CarRentalManagement::printFleet() {
             cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
             LList<Sedan>::Node *tmp = new LList<Sedan>::Node();
             tmp = sedanFleet->head;
-            int i = 0;
-            while(tmp->next != NULL) {
-                cout << i << "\t" << tmp->getData().model << "\t" << tmp->getData().plate 
+            // int i = 0;
+            // while(tmp->next != NULL) {
+            //     cout << i << "\t" << tmp->getData().model << "\t" << tmp->getData().plate 
+            //         << "\t" << tmp->getData().mileage << "\t" << tmp->getData().sits << "\t" << tmp->getData().price;
+            //     if(tmp->getData().status == true) {
+            //         cout << "\tAvailable" << endl;
+            //     } else cout << "\tNot Available" << endl;
+
+            //     tmp = tmp->next; i++;
+            // }
+
+            for(int i = 0; i < sedanFleet->size; i++) {
+                cout << i+1 << "\t" << tmp->getData().model << "\t" << tmp->getData().plate 
                     << "\t" << tmp->getData().mileage << "\t" << tmp->getData().sits << "\t" << tmp->getData().price;
                 if(tmp->getData().status == true) {
                     cout << "\tAvailable" << endl;
                 } else cout << "\tNot Available" << endl;
 
-                tmp = tmp->next; i++;
+                tmp = tmp->next;
             }
             break;
         }
@@ -370,15 +390,25 @@ void CarRentalManagement::printFleet() {
             cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
             LList<SUV>::Node *tmp = new LList<SUV>::Node();
             tmp = suvFleet->head;
-            int i = 1;
-            while(tmp->next != NULL) {
-                cout << i << "\t" << tmp->getData().model << "\t" << tmp->getData().plate 
+            // int i = 1;
+            // while(tmp->next != NULL) {
+            //     cout << i << "\t" << tmp->getData().model << "\t" << tmp->getData().plate 
+            //         << "\t" << tmp->getData().mileage << "\t" << tmp->getData().sits << "\t" << tmp->getData().price;
+            //     if(tmp->getData().status == true) {
+            //         cout << "\tAvailable" << endl;
+            //     } else cout << "\tNot Available" << endl;
+
+            //     tmp = tmp->next; i++;
+            // }
+
+            for(int i = 0; i < suvFleet->size; i++) {
+                cout << i+1 << "\t" << tmp->getData().model << "\t" << tmp->getData().plate 
                     << "\t" << tmp->getData().mileage << "\t" << tmp->getData().sits << "\t" << tmp->getData().price;
                 if(tmp->getData().status == true) {
                     cout << "\tAvailable" << endl;
                 } else cout << "\tNot Available" << endl;
 
-                tmp = tmp->next; i++;
+                tmp = tmp->next;
             }
             break;
         } 
