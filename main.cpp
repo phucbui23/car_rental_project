@@ -35,7 +35,7 @@ int main(){
     cout << carRent.totalVehicle() << endl; 
 
     carRent.addConv();
-    
+    carRent.printFleet();
 
     return 0;
 };

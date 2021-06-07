@@ -23,6 +23,10 @@ public:
             this->next = next;
         };
         ~Node(){};
+
+        T getData(){
+            return data;
+        }
     };
 public:
     Node *head;
@@ -314,67 +318,72 @@ void CarRentalManagement::addConv() {
     this->convertibleFleet->add(newConv5);
 }; //Add 5 Convertibles to the fleet
 
-// void CarRentalManagement::printFleet() {
-//     int choice;
-//     cout << "Choose the fleet you want to see!\n1. Convertible\n2. Sedan\n3. SUV\n" << endl;
-//     cout << "Input: "; cin >> choice;
+void CarRentalManagement::printFleet() {
+    int choice;
+    cout << "Choose the fleet you want to see!\n1. Convertible\n2. Sedan\n3. SUV\n" << endl;
+    cout << "Input your choice: "; cin >> choice;
 
-//     switch (choice) {
-//         case 1: 
-//         {
-//             cout << "This is a Convertible Fleet!\n";
-//             cout << "============================\n"; 
-//             cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
+    switch(choice) {
+        case 1: 
+        {
+            cout << "This is a Convertible Fleet!\n";
+            cout << "============================\n"; 
+            cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
+            LList<Convertible>::Node *tmp = new LList<Convertible>::Node(); 
+            tmp = convertibleFleet->head;
 
-//             Node<Convertible> *tmp = convertibleFleet->head;
-//             int i = 1;
-//             while(tmp->next != NULL) {
-//                 cout << i << "\t" << tmp->data.model << "\t" << tmp->data.plate 
-//                     << "\t" << tmp->data.mileage << "\t" << tmp->data.sits << "\t" << tmp->data.price;
-//                 if(tmp->data.status == true) {
-//                     cout << "\tAvailable" << endl;
-//                 } else cout << "\tNot Available" << endl;
+            int i = 1;
+            while(tmp->next != NULL) {
+                cout << i << "\t" << tmp->getData().model << "\t" << tmp->getData().plate 
+                    << "\t" << tmp->getData().mileage << "\t" << tmp->getData().sits << "\t" << tmp->getData().price;
+                if(tmp->getData().status == true) {
+                    cout << "\tAvailable" << endl;
+                } else cout << "\tNot Available" << endl;
 
-//                 tmp = tmp->next; i++;
-//             }
-//             break;
-//         }
-//         case 2:
-//         {
-//             cout << "This is a Sedan Fleet!\n";
-//             cout << "============================\n"; 
-//             cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
-//             Node<Sedan> *tmp = sedanFleet->head;
-//             int i = 0;
-//             while(tmp->next != NULL) {
-//                 cout << i << "\t" << tmp->data.model << "\t" << tmp->data.plate 
-//                     << "\t" << tmp->data.mileage << "\t" << tmp->data.sits << "\t" << tmp->data.price;
-//                 if(tmp->data.status == true) {
-//                     cout << "\tAvailable" << endl;
-//                 } else cout << "\tNot Available" << endl;
-//                 tmp = tmp->next; i++;
-//             }
-//             break;
-//         }
-//         case 3: 
-//         {
-//             cout << "This is a SUV Fleet!\n";
-//             cout << "============================\n"; 
-//             cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
-//             Node<SUV> *tmp = suvFleet->head;
-//             int i = 1;
-//             while(tmp->next != NULL) {
-//                 cout << i << "\t" << tmp->data.model << "\t" << tmp->data.plate 
-//                     << "\t" << tmp->data.mileage << "\t" << tmp->data.sits << "\t" << tmp->data.price;
-//                 if(tmp->data.status == true) {
-//                     cout << "\tAvailable" << endl;
-//                 } else cout << "\tNot Available" << endl;
-//                 tmp = tmp->next; i++;
-//             }
-//             break;
-//         } 
-//     }
-// };
+                tmp = tmp->next; i++;
+            }
+            break;
+        }
+        case 2:
+        {
+            cout << "This is a Sedan Fleet!\n";
+            cout << "============================\n"; 
+            cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
+            LList<Sedan>::Node *tmp = new LList<Sedan>::Node();
+            tmp = sedanFleet->head;
+            int i = 0;
+            while(tmp->next != NULL) {
+                cout << i << "\t" << tmp->getData().model << "\t" << tmp->getData().plate 
+                    << "\t" << tmp->getData().mileage << "\t" << tmp->getData().sits << "\t" << tmp->getData().price;
+                if(tmp->getData().status == true) {
+                    cout << "\tAvailable" << endl;
+                } else cout << "\tNot Available" << endl;
+
+                tmp = tmp->next; i++;
+            }
+            break;
+        }
+        case 3: 
+        {
+            cout << "This is a SUV Fleet!\n";
+            cout << "============================\n"; 
+            cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
+            LList<SUV>::Node *tmp = new LList<SUV>::Node();
+            tmp = suvFleet->head;
+            int i = 1;
+            while(tmp->next != NULL) {
+                cout << i << "\t" << tmp->getData().model << "\t" << tmp->getData().plate 
+                    << "\t" << tmp->getData().mileage << "\t" << tmp->getData().sits << "\t" << tmp->getData().price;
+                if(tmp->getData().status == true) {
+                    cout << "\tAvailable" << endl;
+                } else cout << "\tNot Available" << endl;
+
+                tmp = tmp->next; i++;
+            }
+            break;
+        } 
+    }
+};
 
 // void CarRentalManagement::serviceFleet() {
 //     Node<Convertible> *tmp = convertibleFleet->head;
