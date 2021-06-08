@@ -64,14 +64,45 @@ public:
         this->size++;
         return;
     }
+};
 
-    // T headData() {
-    //     return this->head->data;
-    // }
+string randomStr(int n) {
+    char alphabet[36] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G',
+                          'H', 'I', 'J', 'K', 'L', 'M', 'N', 
+                          'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+                          'V', 'W', 'X', 'Y', 'Z', '0', '1',
+                          '2', '3', '4', '5', '6', '7', '8', '9' };
+  
+    string str = "";
+    for (int i = 0; i < n; i++) 
+        str = str + alphabet[rand() % 36];
+      
+    return str;
+};
 
-    // T tailData() {
-    //     return this->tail->data;
-    // }
+
+int randomNum(int max, int min) {
+    return (rand() % max + min);
+};
+
+class serviceHistory {
+public:
+    string note;
+    string type, model, plate, checkpointID;
+    int checkpoint;
+
+public:
+    serviceHistory(){};
+    serviceHistory(string type, string model, string plate, int checkpoint) {
+        this->type = type;
+        this->model = model;
+        this->plate = plate;
+        this->checkpointID = randomStr(5);
+        this->checkpoint = checkpoint;
+    };
+    // void serviceEngine();
+    // void serviceTransmission();
+    // void serviceTires();
 };
 
 //VIRTUAL CLASS
@@ -81,12 +112,83 @@ class Vehicle {
     int mileage, sits, price;
     bool status; //1 if available, else 0
 
-    // Vehicle(){};
-    // ~Vehicle(){};
+    public:
+    // class serviceHistory {
+    //     public:
+    //     string checkpointID;
+    //     int checkpoint;
+
+    //     public:
+    //     serviceHistory(){};
+    //     serviceHistory(int checkpoint){
+    //         this->checkpointID = randomStr(5);
+    //         this->checkpoint = checkpoint;
+    //     };
+        
+    //     void serviceEngine();
+    //     void serviceTransmission();
+    //     void serviceTires();
+    // };
+
     //Inheritance and Composition
-    virtual bool serviceEngine() = 0;
-    virtual bool serviceTransmission() = 0;
-    virtual bool serviceTires() = 0;
+    // virtual bool serviceEngine() = 0;
+    // virtual bool serviceTransmission() = 0;
+    // virtual bool serviceTires() = 0;
+    // void serviceEngine();
+    // void serviceTransmission();
+    // void serviceTires();
+
+    void serviceEngine(LList<serviceHistory> *service) {
+        if (this->mileage > 500) {
+            serviceHistory newCheckpoint(this->type, this->model, this->plate, this->mileage);
+            newCheckpoint.note = "Change Engine";
+            service->add(newCheckpoint);
+            
+            //system("clear");
+            cout << "The ID of this service is: " << newCheckpoint.checkpointID << "\n";
+            cout << "The mileage before service is: " << this->mileage << "\n";
+            cout << "This car has run more than 500km! Change engine for the vehicle.\n";
+            cout << "Mileage has been reduced 500 units\n";
+            cout << "____________________________\n";
+            this->mileage -= 500;
+        }
+        else cout << "This vehicle does not need to change Engine\n";
+        cout << "____________________________\n";
+    };
+    void serviceTransmission(LList<serviceHistory> *service) {
+        if (this->mileage > 700) {
+            serviceHistory newCheckpoint(this->type, this->model, this->plate, this->mileage);
+            newCheckpoint.note = "Change Transmission";
+            service->add(newCheckpoint);
+            
+            //system("clear");
+            cout << "The ID of this service is: " << newCheckpoint.checkpointID << "\n";
+            cout << "The mileage before service is: " << this->mileage << "\n";
+            cout << "This car has run more than 700km! Change transmission for the vehicle.\n";
+            cout << "Mileage has been reduced 700 units\n";
+            cout << "____________________________\n";
+            this->mileage -= 700;
+        }
+        else cout << "This vehicle does not need to change Transmission\n";
+        cout << "____________________________\n";
+    };
+    void serviceTires(LList<serviceHistory> *service) {
+        if (this->mileage > 100) {
+            serviceHistory newCheckpoint(this->type, this->model, this->plate, this->mileage);
+            newCheckpoint.note = "Change Tires";
+            service->add(newCheckpoint);
+            
+            //system("clear");
+            cout << "The ID of this service is: " << newCheckpoint.checkpointID << "\n";
+            cout << "The mileage before service is: " << this->mileage << "\n";
+            cout << "This car has run more than 100km! Change tires for the vehicle.\n";
+            cout << "Mileage has been reduced 100 units\n";
+            cout << "____________________________\n";
+            this->mileage -= 100;
+        }
+        else cout << "This vehicle does not need to change Tires\n";
+        cout << "____________________________\n";
+    };
 };
 
 //INHERITE CLASSES
@@ -101,26 +203,49 @@ class Convertible : public Vehicle {
     };
 
     ~Convertible(){};
-    
-    bool serviceEngine() {
-        if (this->mileage > 1000) {
-            cout << "This car has run more than 1000km! Need to change oil.";
-        }
-        return true;
-    };
-    bool serviceTransmission() {
-        if (this->mileage > 1000) {
-            cout << "This car has run more than 1000km! Need to change fluid.";
-        }
-        return true;
-    };
-    bool serviceTires() {
-        if (this->mileage > 1000) {
-            cout << "This car has run more than 1000km! Need to change tires.";
-        }
-        return true;
-    };
 
+    // void serviceEngine(LList<serviceHistory> *service) {
+    //     if (this->mileage > 500) {
+    //         serviceHistory newCheckpoint(this->mileage);
+    //         service->add(newCheckpoint);
+            
+    //         system("clear");
+    //         cout << "The ID of this service is: " << newCheckpoint.checkpointID << "\n";
+    //         cout << "The mileage before service is: " << this->mileage << "\n";
+    //         cout << "This car has run more than 500km! Change oil for the vehicle.\n";
+    //         cout << "Mileage has been reduced 500 units";
+    //         this->mileage -= 500;
+    //     }
+    //     else cout << "This vehicle does not need to change Engine";
+    // };
+    // void serviceTransmission(LList<serviceHistory> *service) {
+    //     if (this->mileage > 700) {
+    //         serviceHistory newCheckpoint(this->mileage);
+    //         service->add(newCheckpoint);
+            
+    //         system("clear");
+    //         cout << "The ID of this service is: " << newCheckpoint.checkpointID << "\n";
+    //         cout << "The mileage before service is: " << this->mileage << "\n";
+    //         cout << "This car has run more than 700km! Change transmission for the vehicle.\n";
+    //         cout << "Mileage has been reduced 700 units";
+    //         this->mileage -= 700;
+    //     }
+    //     else cout << "This vehicle does not need to change Transmission";
+    // };
+    // void serviceTires(LList<serviceHistory> *service) {
+    //     if (this->mileage > 100) {
+    //         serviceHistory newCheckpoint(this->mileage);
+    //         service->add(newCheckpoint);
+            
+    //         system("clear");
+    //         cout << "The ID of this service is: " << newCheckpoint.checkpointID << "\n";
+    //         cout << "The mileage before service is: " << this->mileage << "\n";
+    //         cout << "This car has run more than 100km! Change tires for the vehicle.\n";
+    //         cout << "Mileage has been reduced 100 units";
+    //         this->mileage -= 100;
+    //     }
+    //     else cout << "This vehicle does not need to change Engine";
+    // };
 };
 
 class Sedan : public Vehicle { 
@@ -135,25 +260,6 @@ class Sedan : public Vehicle {
     };
 
     ~Sedan(){};
-
-    bool serviceEngine() {
-        if (this->mileage > 1000) {
-            cout << "This car has run more than 1000km! Need to change oil.";
-        }
-        return true;
-    };
-    bool serviceTransmission() {
-        if (this->mileage > 1000) {
-            cout << "This car has run more than 1000km! Need to change fluid.";
-        }
-        return true;
-    };
-    bool serviceTires() {
-        if (this->mileage > 1000) {
-            cout << "This car has run more than 1000km! Need to change tires.";
-        }
-        return true;
-    };
 };
 
 class SUV : public Vehicle {  
@@ -167,25 +273,6 @@ class SUV : public Vehicle {
     };
 
     ~SUV(){};
-
-    bool serviceEngine() {
-        if (this->mileage > 1000) {
-            cout << "This car has run more than 1000km! Need to change oil.";
-        }
-        return true;
-    };
-    bool serviceTransmission() {
-        if (this->mileage > 1000) {
-            cout << "This car has run more than 1000km! Need to change fluid.";
-        }
-        return true;
-    };
-    bool serviceTires() {
-        if (this->mileage > 1000) {
-            cout << "This car has run more than 1000km! Need to change tires.";
-        }
-        return true;
-    };
 };
 
 // class Customer {
@@ -264,11 +351,10 @@ class CarRentalManagement {
     LList<Convertible> *convertibleFleet;
     LList<Sedan> *sedanFleet;
     LList<SUV> *suvFleet;
-
+    LList<serviceHistory> *service;
     //Customers and Contracts
     //LList<Customer> *customerList;
     //LList<RentalContract> *contractList;
-
     public:
     CarRentalManagement();
     ~CarRentalManagement();
@@ -283,6 +369,7 @@ class CarRentalManagement {
 
     //iterates through all vehicles it manages to check if the cars need service
     void serviceFleet();
+    void printServiceHistory();
     void printAllContract();
 };
 
@@ -290,6 +377,7 @@ CarRentalManagement::CarRentalManagement() {
     convertibleFleet = new LList<Convertible>();
     sedanFleet = new LList<Sedan>();
     suvFleet = new LList<SUV>();
+    service = new LList<serviceHistory>();
     //customerList = new LList<Customer>();
     //contractList = new LList<RentalContract>();
 }
@@ -298,35 +386,36 @@ CarRentalManagement::~CarRentalManagement() {
     delete convertibleFleet;
     delete sedanFleet;
     delete suvFleet;
+    delete service;
     //delete customerList;
     //delete contractList;
 }
 
 void CarRentalManagement::addConv() { 
-    Convertible newConv1 = Convertible("DSA", "329HDS");
-    newConv1.mileage = rand() % 5000 + 0;
-    newConv1.sits = rand() % 7 + 4;
-    newConv1.price = rand() % 500 + 150;
+    Convertible newConv1 = Convertible(randomStr(3), randomStr(6));
+    newConv1.mileage = randomNum(5000,0);
+    newConv1.sits = randomNum(7,4);
+    newConv1.price = randomNum(500,150);
 
-    Convertible newConv2 = Convertible("CA", "239HAN");
-    newConv2.mileage = rand() % 5000 + 0;
-    newConv2.sits = rand() % 7 + 4;
-    newConv2.price = rand() % 500 + 150;
+    Convertible newConv2 = Convertible(randomStr(3), randomStr(6));
+    newConv2.mileage = randomNum(5000,0);
+    newConv2.sits = randomNum(7,4);
+    newConv2.price = randomNum(500,150);
 
-    Convertible newConv3 = Convertible("PPL", "902PLJ");
-    newConv3.mileage = rand() % 5000 + 0;
-    newConv3.sits = rand() % 7 + 4;
-    newConv3.price = rand() % 500 + 150;
+    Convertible newConv3 = Convertible(randomStr(3), randomStr(6));
+    newConv3.mileage = randomNum(5000,0);
+    newConv3.sits = randomNum(7,4);
+    newConv3.price = randomNum(500,150);
 
-    Convertible newConv4 = Convertible("PGF", "678HIG");
-    newConv4.mileage = rand() % 5000 + 0;
-    newConv4.sits = rand() % 7 + 4;
-    newConv4.price = rand() % 500 + 150;
+    Convertible newConv4 = Convertible(randomStr(3), randomStr(6));
+    newConv4.mileage = randomNum(5000,0);
+    newConv4.sits = randomNum(7,4);
+    newConv4.price = randomNum(500,150);
 
-    Convertible newConv5 = Convertible("SPE", "778GYH");
-    newConv5.mileage = rand() % 5000 + 0;
-    newConv5.sits = rand() % 7 + 4;
-    newConv5.price = rand() % 500 + 150;
+    Convertible newConv5 = Convertible(randomStr(3), randomStr(6));
+    newConv5.mileage = randomNum(5000,0);
+    newConv5.sits = randomNum(7,4);
+    newConv5.price = randomNum(500,150);
 
     this->convertibleFleet->add(newConv1);
     this->convertibleFleet->add(newConv2);
@@ -336,30 +425,30 @@ void CarRentalManagement::addConv() {
 }; //Add 5 Convertibles to the fleet
 
 void CarRentalManagement::addSedan() { 
-    Sedan newSed1 = Sedan("DSA", "329HDS");
-    newSed1.mileage = rand() % 5000 + 0;
-    newSed1.sits = rand() % 7 + 4;
-    newSed1.price = rand() % 500 + 150;
+    Sedan newSed1 = Sedan(randomStr(3), randomStr(6));
+    newSed1.mileage = randomNum(5000,0);
+    newSed1.sits = randomNum(7,4);
+    newSed1.price = randomNum(500,150);
 
-    Sedan newSed2 = Sedan("CA", "239HAN");
-    newSed2.mileage = rand() % 5000 + 0;
-    newSed2.sits = rand() % 7 + 4;
-    newSed2.price = rand() % 500 + 150;
+    Sedan newSed2 = Sedan(randomStr(3), randomStr(6));
+    newSed2.mileage = randomNum(5000,0);
+    newSed2.sits = randomNum(7,4);
+    newSed2.price = randomNum(500,150);
 
-    Sedan newSed3 = Sedan("PPL", "902PLJ");
-    newSed3.mileage = rand() % 5000 + 0;
-    newSed3.sits = rand() % 7 + 4;
-    newSed3.price = rand() % 500 + 150;
+    Sedan newSed3 = Sedan(randomStr(3), randomStr(6));
+    newSed3.mileage = randomNum(5000,0);
+    newSed3.sits = randomNum(7,4);
+    newSed3.price = randomNum(500,150);
 
-    Sedan newSed4 = Sedan("PGF", "678HIG");
-    newSed4.mileage = rand() % 5000 + 0;
-    newSed4.sits = rand() % 7 + 4;
-    newSed4.price = rand() % 500 + 150;
+    Sedan newSed4 = Sedan(randomStr(3), randomStr(6));
+    newSed4.mileage = randomNum(5000,0);
+    newSed4.sits = randomNum(7,4);
+    newSed4.price = randomNum(500,150);
 
-    Sedan newSed5 = Sedan("SPE", "778GYH");
-    newSed5.mileage = rand() % 5000 + 0;
-    newSed5.sits = rand() % 7 + 4;
-    newSed5.price = rand() % 500 + 150;
+    Sedan newSed5 = Sedan(randomStr(3), randomStr(6));
+    newSed5.mileage = randomNum(5000,0);
+    newSed5.sits = randomNum(7,4);
+    newSed5.price = randomNum(500,150);
 
     this->sedanFleet->add(newSed1);
     this->sedanFleet->add(newSed2);
@@ -369,30 +458,30 @@ void CarRentalManagement::addSedan() {
 }; //Add 5 Sedans to the fleet
 
 void CarRentalManagement::addSUV() { 
-    SUV newSUV1 = SUV("DSA", "329HDS");
-    newSUV1.mileage = rand() % 5000 + 0;
-    newSUV1.sits = rand() % 7 + 4;
-    newSUV1.price = rand() % 500 + 150;
+    SUV newSUV1 = SUV(randomStr(3), randomStr(6));
+    newSUV1.mileage = randomNum(5000,0);
+    newSUV1.sits = randomNum(7,4);
+    newSUV1.price = randomNum(500,150);
 
-    SUV newSUV2 = SUV("CA", "239HAN");
-    newSUV2.mileage = rand() % 5000 + 0;
-    newSUV2.sits = rand() % 7 + 4;
-    newSUV2.price = rand() % 500 + 150;
+    SUV newSUV2 = SUV(randomStr(3), randomStr(6));
+    newSUV2.mileage = randomNum(5000,0);
+    newSUV2.sits = randomNum(7,4);
+    newSUV2.price = randomNum(500,150);
 
-    SUV newSUV3 = SUV("PPL", "902PLJ");
-    newSUV3.mileage = rand() % 5000 + 0;
-    newSUV3.sits = rand() % 7 + 4;
-    newSUV3.price = rand() % 500 + 150;
+    SUV newSUV3 = SUV(randomStr(3), randomStr(6));
+    newSUV3.mileage = randomNum(5000,0);
+    newSUV3.sits = randomNum(7,4);
+    newSUV3.price = randomNum(500,150);
 
-    SUV newSUV4 = SUV("PGF", "678HIG");
-    newSUV4.mileage = rand() % 5000 + 0;
-    newSUV4.sits = rand() % 7 + 4;
-    newSUV4.price = rand() % 500 + 150;
+    SUV newSUV4 = SUV(randomStr(3), randomStr(6));
+    newSUV4.mileage = randomNum(5000,0);
+    newSUV4.sits = randomNum(7,4);
+    newSUV4.price = randomNum(500,150);
 
-    SUV newSUV5 = SUV("SPE", "778GYH");
-    newSUV5.mileage = rand() % 5000 + 0;
-    newSUV5.sits = rand() % 7 + 4;
-    newSUV5.price = rand() % 500 + 150;
+    SUV newSUV5 = SUV(randomStr(3), randomStr(6));
+    newSUV5.mileage = randomNum(5000,0);
+    newSUV5.sits = randomNum(7,4);
+    newSUV5.price = randomNum(500,150);
 
     this->suvFleet->add(newSUV1);
     this->suvFleet->add(newSUV2);
@@ -486,63 +575,62 @@ void CarRentalManagement::printFleet() {
     }
 };
 
-// void CarRentalManagement::serviceFleet() {
-//     Node<Convertible> *tmp = convertibleFleet->head;
-//     cout << "Checking Convertible fleet...\n";
-//     for (int i = 0; i < convertibleFleet->length(); i++) {
-//         if(tmp->data.serviceEngine() == true) {
-//             cout << "Car " << tmp->data.plate << " has been maintained.\n";
-//             tmp->data.mileage = 0;
-//         }
-//         if(tmp->data.serviceTransmission() == true) {
-//             cout << "Car " << tmp->data.plate << " has been maintained.\n";
-//             tmp->data.mileage = 0;
-//         }
-//         if(tmp->data.serviceTires() == true) {
-//             cout << "Car " << tmp->data.plate << " has been maintained.\n";
-//             tmp->data.mileage = 0;
-//         }
-//         tmp = tmp->next;
-//     }
-//     cout << "Done check Convertible fleet...\n";
+void CarRentalManagement::serviceFleet() {
+    LList<Convertible>::Node *tmp = new LList<Convertible>::Node();
+    LList<Sedan>::Node *tmp2 = new LList<Sedan>::Node();
+    LList<SUV>::Node *tmp3 = new LList<SUV>::Node();
 
-//     Node<Sedan> *tmp_2 = sedanFleet->head;
-//     cout << "Checking Sedan fleet...\n";
-//     for (int i = 0; i < sedanFleet->length(); i++) {
-//         if(tmp_2->data.serviceEngine() == true) {
-//             cout << "Car " << tmp_2->data.plate << " has been maintained.\n";
-//             tmp_2->data.mileage = 0;
-//         }
-//         if(tmp_2->data.serviceTransmission() == true) {
-//             cout << "Car " << tmp_2->data.plate << " has been maintained.\n";
-//             tmp_2->data.mileage = 0;
-//         }
-//         if(tmp_2->data.serviceTires() == true) {
-//             cout << "Car " << tmp_2->data.plate << " has been maintained.\n";
-//             tmp_2->data.mileage = 0;
-//         }
-//         tmp_2 = tmp_2->next;
-//     }
-//     cout << "Done check Sedan fleet...\n";
+    tmp = convertibleFleet->head;
+    cout << "Checking Convertible fleet...\n";
+    cout << "============================\n";
+    for (int i = 0; i < convertibleFleet->size; i++) {
+        tmp->getData().serviceTires(this->service);
+        tmp->getData().serviceEngine(this->service);
+        tmp->getData().serviceTransmission(this->service);
+        tmp = tmp->next;
+    }
+    cout << "Done check Convertible fleet...\n";
+    cout << "============================\n";
 
-//     Node<SUV> *tmp_3 = suvFleet->head;
-//     cout << "Checking SUV fleet...\n";
-//     for (int i = 0; i < suvFleet->length(); i++) {
-//         if(tmp_3->data.serviceEngine() == true) {
-//             cout << "Car " << tmp_3->data.plate << " has been maintained.\n";
-//             tmp_3->data.mileage = 0;
-//         }
-//         if(tmp_3->data.serviceTransmission() == true) {
-//             cout << "Car " << tmp_3->data.plate << " has been maintained.\n";
-//             tmp_3->data.mileage = 0;
-//         }
-//         if(tmp_3->data.serviceTires() == true) {
-//             cout << "Car " << tmp_3->data.plate << " has been maintained.\n";
-//             tmp_3->data.mileage = 0;
-//         }
-//         tmp_3 = tmp_3->next;
-//     }
-//     cout << "Done check SUV fleet...\n";
-// };
+    tmp2 = sedanFleet->head;
+    cout << "Checking Sedan fleet...\n";
+    cout << "============================\n";
+    for (int i = 0; i < sedanFleet->length(); i++) {
+        tmp2->getData().serviceTires(this->service);
+        tmp2->getData().serviceEngine(this->service);
+        tmp2->getData().serviceTransmission(this->service);
+        tmp2 = tmp2->next;
+    }
+    cout << "Done check Sedan fleet...\n";
+    cout << "============================\n";
+
+    tmp3 = suvFleet->head;
+    cout << "Checking SUV fleet...\n";
+    cout << "============================\n";
+    for (int i = 0; i < suvFleet->length(); i++) {
+        tmp3->getData().serviceTires(this->service);
+        tmp3->getData().serviceEngine(this->service);
+        tmp3->getData().serviceTransmission(this->service);
+        tmp3 = tmp3->next;
+    }
+    cout << "Done check SUV fleet...\n";
+    cout << "============================\n";
+};
+
+void CarRentalManagement::printServiceHistory() {
+    system("clear");
+    cout << "This is the service history!\n";
+    cout << "============================\n";
+    cout << "Service ID\tCar Type\tModel\tPlate\tMileage run\tNote\n";
+    cout << "------------------------------------------------------------------------------------\n";
+    LList<serviceHistory>::Node *tmp = new LList<serviceHistory>::Node();
+    tmp = service->head;
+    for (int i = 0; i < service->size; i++)
+    {
+        cout << tmp->getData().checkpointID << "\t\t" << tmp->getData().type << "\t" << tmp->getData().model
+             << "\t" << tmp->getData().plate << "\t" << tmp->getData().checkpoint << "\t\t" << tmp->getData().note << "\n";
+        tmp = tmp->next;
+    }
+}
 
 #endif
