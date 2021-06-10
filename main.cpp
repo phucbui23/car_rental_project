@@ -8,7 +8,7 @@
 #include <stdlib.h>
 //#include <windows.h>
 //#include "company.h"
-#include "company2.h"
+#include "company.h"
 
 int main(){
     system("clear");
@@ -34,10 +34,10 @@ int main(){
     carRent.addSedan();
     carRent.addSUV();
 
-    // carRent.serviceFleet();
-    // carRent.printServiceHistory();
+    carRent.serviceFleet();
+    carRent.printServiceHistory();
 
-    carRent.createContract();
+    //carRent.createContract();
     carRent.printAllContract();
     
 
