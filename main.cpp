@@ -34,7 +34,12 @@ int main(){
     carRent.addSedan();
     carRent.addSUV();
 
-    carRent.serviceFleet();
-    carRent.printServiceHistory();
+    // carRent.serviceFleet();
+    // carRent.printServiceHistory();
+
+    carRent.createContract();
+    carRent.printAllContract();
+    
+
     return 0;
 };

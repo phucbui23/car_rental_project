@@ -80,7 +80,6 @@ string randomStr(int n) {
     return str;
 };
 
-
 int randomNum(int max, int min) {
     return (rand() % max + min);
 };
@@ -134,9 +133,6 @@ class Vehicle {
     // virtual bool serviceEngine() = 0;
     // virtual bool serviceTransmission() = 0;
     // virtual bool serviceTires() = 0;
-    // void serviceEngine();
-    // void serviceTransmission();
-    // void serviceTires();
 
     void serviceEngine(LList<serviceHistory> *service) {
         if (this->mileage > 500) {
@@ -191,7 +187,7 @@ class Vehicle {
     };
 };
 
-//INHERITE CLASSES
+//INHERITED CLASSES
 class Convertible : public Vehicle {
     public:
     Convertible(){};
@@ -204,6 +200,12 @@ class Convertible : public Vehicle {
 
     ~Convertible(){};
 
+    void setStatus(bool status) {
+        this->status = status;
+    }
+    void setMileage(int mileage) {
+        this->mileage = mileage;
+    }
     // void serviceEngine(LList<serviceHistory> *service) {
     //     if (this->mileage > 500) {
     //         serviceHistory newCheckpoint(this->mileage);
@@ -260,6 +262,12 @@ class Sedan : public Vehicle {
     };
 
     ~Sedan(){};
+    void setStatus(bool status) {
+        this->status = status;
+    }
+    void setMileage(int mileage) {
+        this->mileage = mileage;
+    }
 };
 
 class SUV : public Vehicle {  
@@ -273,78 +281,91 @@ class SUV : public Vehicle {
     };
 
     ~SUV(){};
+    void setStatus(bool status) {
+        this->status = status;
+    }
+    void setMileage(int mileage) {
+        this->mileage = mileage;
+    }
 };
 
-// class Customer {
-// private:
-//     string name;
-//     string email;
-//     string dateOfBirth;
-//     string address;
-//     string licenseNum;
-//     bool gender; //1 if male, else 0
+class Customer {
+public:
+    string name;
+    string address;
+    string licenseNum;
+    bool gender; //1 if male, else 0
 
-// public:
-//     Customer(){};
-//     Customer(string name, string email, string dateOfBirth, string address, string licenseNum, bool gender) {
-//         this->name = name;
-//         this->email = email;
-//         this->dateOfBirth = dateOfBirth;
-//         this->address = address;
-//         this->licenseNum = licenseNum;
-//         this->gender = gender;
-//     };
-//     ~Customer();
-// };
+public:
+    Customer(){};
+    Customer(string name, string address, string licenseNum, bool gender) {
+        this->name = name;
+        this->address = address;
+        this->licenseNum = licenseNum;
+        this->gender = gender;
+    };
+    ~Customer(){};
 
-// class RentalContract {
-// public:
-//     Customer driver;
-//     string paymentMethod;
-//     int numberOfDaysRent;
-//     int contractNumber;
+    // string getName() { 
+    //     return name;
+    // }
+    // string getaAddress() { 
+    //     return address;
+    // }
+    // string getLicense() { 
+    //     return licenseNum;
+    // }
+    // bool getgender() { 
+    //     return gender;
+    // }
+};
 
-//     //A person can rent many cars at once
-//     Convertible conv_car;
-//     Sedan sed_car;
-//     SUV suv_car;
+struct carInfo {
+    string type, model, plate;
+    int mileage, sits, price;
+
+    carInfo(){};
+    carInfo(string type, string model, string plate, int mileage, int sits, int price) {
+        this->type = type;
+        this->model = model;
+        this->plate = plate;
+        this->mileage = mileage;
+        this->sits = sits;
+        this->price = price;
+    } 
+};
+
+class RentalContract {
+public:
+    string contractID;
+    carInfo rentCar;
+    Customer driver;
+    string paymentMethod;
+    int numberOfDaysRent;
+    int total;
+
+    //A person can rent many cars at once
+    // Convertible conv_car;
+    // Sedan sed_car;
+    // SUV suv_car;
     
-// public:
-//     RentalContract(){};
-//     //Create contract for booking convertible car
-//     RentalContract(Customer info, string method, int time, int contractNumber, Convertible conv_car) {
-//         this->driver = info;
-//         this->paymentMethod = method;
-//         this->numberOfDaysRent = time;
-//         this->contractNumber = contractNumber;
-//         this->conv_car = conv_car;
-//     }; 
+public:
+    RentalContract(){};
+    RentalContract(string contractID, carInfo rentCar, Customer driver, string paymentMethod, int numberOfDaysRent, int total) {
+        this->contractID = contractID;
+        this->rentCar = rentCar;
+        this->driver = driver;
+        this->paymentMethod = paymentMethod;
+        this->numberOfDaysRent = numberOfDaysRent;
+        this->total = total;
+    }
 
-//     //Create contract for booking sedan car
-//     RentalContract(Customer info, string method, int time, int contractNumber, Sedan sed_car) {
-//         this->driver = info;
-//         this->paymentMethod = method;
-//         this->numberOfDaysRent = time;
-//         this->contractNumber = contractNumber;
-//         this->sed_car = sed_car;
-//     }; 
+    ~RentalContract(){};
+    // void createContract();
+    // void deleteContract();
+    // void printAllContract();
 
-//     //Create contract for booking suv car
-//     RentalContract(Customer info, string method, int time, int contractNumber, SUV suv_car) {
-//         this->driver = info;
-//         this->paymentMethod = method;
-//         this->numberOfDaysRent = time;
-//         this->contractNumber = contractNumber;
-//         this->suv_car = suv_car;
-//     }; 
-
-//     ~RentalContract(){};
-//     void createContract();
-//     void deleteContract();
-//     int total(int price, int numberOfDaysRent) { return price * numberOfDaysRent; }
-//     void printContract();
-
-// };
+};
 
 class CarRentalManagement {
     public:
@@ -352,12 +373,15 @@ class CarRentalManagement {
     LList<Sedan> *sedanFleet;
     LList<SUV> *suvFleet;
     LList<serviceHistory> *service;
+
     //Customers and Contracts
     //LList<Customer> *customerList;
-    //LList<RentalContract> *contractList;
+    LList<RentalContract> *contractList;
+
     public:
     CarRentalManagement();
     ~CarRentalManagement();
+    
     void addConv();
     void addSedan();
     void addSUV();
@@ -370,6 +394,9 @@ class CarRentalManagement {
     //iterates through all vehicles it manages to check if the cars need service
     void serviceFleet();
     void printServiceHistory();
+
+    //Contract
+    void createContract();
     void printAllContract();
 };
 
@@ -379,7 +406,7 @@ CarRentalManagement::CarRentalManagement() {
     suvFleet = new LList<SUV>();
     service = new LList<serviceHistory>();
     //customerList = new LList<Customer>();
-    //contractList = new LList<RentalContract>();
+    contractList = new LList<RentalContract>();
 }
 
 CarRentalManagement::~CarRentalManagement() {
@@ -388,7 +415,7 @@ CarRentalManagement::~CarRentalManagement() {
     delete suvFleet;
     delete service;
     //delete customerList;
-    //delete contractList;
+    delete contractList;
 }
 
 void CarRentalManagement::addConv() { 
@@ -519,6 +546,7 @@ void CarRentalManagement::printFleet() {
 
                     tmp = tmp->next;
                 }
+                delete tmp;
                 break;
             }
             case 2:
@@ -542,6 +570,7 @@ void CarRentalManagement::printFleet() {
 
                     tmp = tmp->next;
                 }
+                delete tmp;
                 break;
             }
             case 3:
@@ -565,6 +594,7 @@ void CarRentalManagement::printFleet() {
 
                     tmp = tmp->next;
                 }
+                delete tmp;
                 break;
             }
             case 4:
@@ -615,6 +645,10 @@ void CarRentalManagement::serviceFleet() {
     }
     cout << "Done check SUV fleet...\n";
     cout << "============================\n";
+
+    delete tmp;
+    delete tmp2;
+    delete tmp3;
 };
 
 void CarRentalManagement::printServiceHistory() {
@@ -627,10 +661,193 @@ void CarRentalManagement::printServiceHistory() {
     tmp = service->head;
     for (int i = 0; i < service->size; i++)
     {
-        cout << tmp->getData().checkpointID << "\t\t" << tmp->getData().type << "\t" << tmp->getData().model
-             << "\t" << tmp->getData().plate << "\t" << tmp->getData().checkpoint << "\t\t" << tmp->getData().note << "\n";
+        cout << tmp->getData().checkpointID << setw(15) << tmp->getData().type << "\t" << tmp->getData().model
+             << "\t" << tmp->getData().plate << "\t" << tmp->getData().checkpoint << setw(15) << tmp->getData().note << "\n";
         tmp = tmp->next;
     }
+    delete tmp;
 }
 
+void CarRentalManagement::createContract() {
+    int fleetChoice, choice, daysRent;
+    carInfo newCar;
+    Customer driver;
+    string paymentMethod;
+
+    system("clear");
+
+    //Input driver infomation
+    cout << "Please input your name: "; cin >> driver.name;
+    cout << "Please input your address: "; cin >> driver.address;
+    cout << "PLease input your license number: "; cin >> driver.licenseNum;
+    cout << "Please input your gender (1-Male 0-Female): "; cin >> driver.gender; 
+
+    cout << "============================\n";
+    cout << "Choose the type you want to rent!\n1. Convertible\n2. Sedan\n3. SUV\n"
+         << endl;
+    cout << "Input your choice: ";
+    cin >> fleetChoice;
+
+    switch (fleetChoice)
+    {
+    case 1:
+    {
+        system("clear");
+        cout << "This is a Convertible Fleet!\n";
+        cout << "============================\n";
+        cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
+        LList<Convertible>::Node *tmp = new LList<Convertible>::Node();
+        tmp = convertibleFleet->head;
+
+        for (int i = 0; i < convertibleFleet->size; i++)
+        {
+            cout << i + 1 << "\t" << tmp->getData().model << "\t" << tmp->getData().plate
+                 << "\t" << tmp->getData().mileage << "\t" << tmp->getData().sits << "\t" << tmp->getData().price;
+            if (tmp->getData().status == true)
+            {
+                cout << "\tAvailable" << endl;
+            }
+            else
+                cout << "\tNot Available" << endl;
+
+            tmp = tmp->next;
+        }
+        delete tmp;
+        break;
+    }
+    case 2:
+    {
+        system("clear");
+        cout << "This is a Sedan Fleet!\n";
+        cout << "============================\n";
+        cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
+        LList<Sedan>::Node *tmp = new LList<Sedan>::Node();
+        tmp = sedanFleet->head;
+
+        for (int i = 0; i < sedanFleet->size; i++)
+        {
+            cout << i + 1 << "\t" << tmp->getData().model << "\t" << tmp->getData().plate
+                 << "\t" << tmp->getData().mileage << "\t" << tmp->getData().sits << "\t" << tmp->getData().price;
+            if (tmp->getData().status == true)
+            {
+                cout << "\tAvailable" << endl;
+            }
+            else
+                cout << "\tNot Available" << endl;
+
+            tmp = tmp->next;
+        }
+        delete tmp;
+        break;
+    }
+    case 3:
+    {
+        system("clear");
+        cout << "This is a SUV Fleet!\n";
+        cout << "============================\n";
+        cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
+        LList<SUV>::Node *tmp = new LList<SUV>::Node();
+        tmp = suvFleet->head;
+
+        for (int i = 0; i < suvFleet->size; i++)
+        {
+            cout << i + 1 << "\t" << tmp->getData().model << "\t" << tmp->getData().plate
+                 << "\t" << tmp->getData().mileage << "\t" << tmp->getData().sits << "\t" << tmp->getData().price;
+            if (tmp->getData().status == true)
+            {
+                cout << "\tAvailable" << endl;
+            }
+            else
+                cout << "\tNot Available" << endl;
+
+            tmp = tmp->next;
+        }
+        delete tmp;
+        break;
+    }
+    }
+
+    //Generate the contract
+    cout << "========================================\n";
+    cout << "= Create contract for your new Vehicle =\n";
+    cout << "========================================\n";
+    cout << "Please choose the number of the vehicle you want to rent: "; cin >> choice;
+    cout << "How many day would you like to rent: "; cin >> daysRent;
+    cout << "Payment method: "; cin >> paymentMethod;
+
+
+    //Update the status of the vehicle & take carInfo
+    if(fleetChoice == 1) {
+        LList<Convertible>::Node *tmp = new LList<Convertible>::Node();
+        tmp = convertibleFleet->head;
+        for (int i = 0; i < choice - 1; i++)
+        {
+            tmp = tmp->next;
+        }
+        tmp->getData().setStatus(0);
+        newCar.type = tmp->getData().type;
+        newCar.model = tmp->getData().model;
+        newCar.plate = tmp->getData().plate;
+        newCar.mileage = tmp->getData().mileage;
+        newCar.sits = tmp->getData().sits;
+        newCar.price = tmp->getData().price;
+        delete tmp;
+    } else if(fleetChoice == 2) {
+        LList<Sedan>::Node *tmp = new LList<Sedan>::Node();
+        tmp = sedanFleet->head;
+        for (int i = 0; i < choice - 1; i++)
+        {
+            tmp = tmp->next;
+        }
+        tmp->getData().setStatus(0);
+        newCar.type = tmp->getData().type;
+        newCar.model = tmp->getData().model;
+        newCar.plate = tmp->getData().plate;
+        newCar.mileage = tmp->getData().mileage;
+        newCar.sits = tmp->getData().sits;
+        newCar.price = tmp->getData().price;
+        delete tmp;
+    } else {
+        LList<SUV>::Node *tmp = new LList<SUV>::Node();
+        tmp = suvFleet->head;
+        for (int i = 0; i < choice - 1; i++)
+        {
+            tmp = tmp->next;
+        }
+        tmp->getData().setStatus(0);
+        newCar.type = tmp->getData().type;
+        newCar.model = tmp->getData().model;
+        newCar.plate = tmp->getData().plate;
+        newCar.mileage = tmp->getData().mileage;
+        newCar.sits = tmp->getData().sits;
+        newCar.price = tmp->getData().price;
+        delete tmp;
+    }
+
+    //Create contract
+    RentalContract newContract = RentalContract(randomStr(5), newCar, driver, paymentMethod, daysRent, daysRent*newCar.price);
+    contractList->add(newContract);
+
+    return; 
+}
+
+void CarRentalManagement::printAllContract() {
+    system("clear");
+    cout << "This is the Contract List!\n";
+    cout << "============================\n";
+    cout << "Contract ID\tDriver's Name\tAddress\t\tLicense\tCarType\tModel\tPlate\tMileage\tSits\tPrice\tDays Rent\tTotal\n";
+    cout << "---------------------------------------------------------------------------------------------------------------------\n";
+    LList<RentalContract>::Node *tmp = new LList<RentalContract>::Node();
+    tmp = contractList->head;
+    for (int i = 0; i < contractList->size; i++)
+    {
+        cout << tmp->getData().contractID << setw(15) << tmp->getData().driver.name << setw(18) << tmp->getData().driver.address
+             << setw(18) << tmp->getData().driver.licenseNum << setw(15) << tmp->getData().rentCar.type << setw(15) 
+             << tmp->getData().rentCar.model << setw(15) << tmp->getData().rentCar.plate << setw(15) << tmp->getData().rentCar.mileage << setw(15) 
+             << tmp->getData().rentCar.sits << setw(15) << tmp->getData().rentCar.price << setw(15) <<  tmp->getData().numberOfDaysRent << setw(15) 
+             << tmp->getData().total << "\n";
+        tmp = tmp->next;
+    }
+    delete tmp;
+}
 #endif
