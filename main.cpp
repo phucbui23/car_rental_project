@@ -6,8 +6,6 @@
 #include <cstring>
 #include <map>
 #include <stdlib.h>
-//#include <windows.h>
-//#include "company.h"
 #include "company.h"
 
 int main(){
@@ -28,18 +26,16 @@ int main(){
 
     // newConv1.serviceEngine(carRent.service);
     // carRent.printServiceHistory();
-
-
     carRent.addConv();
     carRent.addSedan();
     carRent.addSUV();
 
-    carRent.serviceFleet();
-    carRent.printServiceHistory();
+    carRent.printFleet();
+    // carRent.serviceFleet();
+    // carRent.printServiceHistory();
 
     //carRent.createContract();
-    carRent.printAllContract();
-    
+    //carRent.printAllContract();
 
     return 0;
 };

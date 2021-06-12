@@ -81,7 +81,7 @@ string randomStr(int n) {
 };
 
 int randomNum(int max, int min) {
-    return (rand() % max + min);
+    return ((rand() % max) + min);
 };
 
 class serviceHistory {
@@ -113,80 +113,12 @@ class Vehicle {
     int mileage, sits, price;
     bool status; //1 if available, else 0
 
+    //serviceHistory vehicleHistory; //Composition
     public:
-    // class serviceHistory {
-    //     public:
-    //     string checkpointID;
-    //     int checkpoint;
-
-    //     public:
-    //     serviceHistory(){};
-    //     serviceHistory(int checkpoint){
-    //         this->checkpointID = randomStr(5);
-    //         this->checkpoint = checkpoint;
-    //     };
-        
-    //     void serviceEngine();
-    //     void serviceTransmission();
-    //     void serviceTires();
-    // };
-
-    //Inheritance and Composition
+    //Pure virtual methods
     virtual void serviceEngine(LList<serviceHistory> *service) = 0;
     virtual void serviceTransmission(LList<serviceHistory> *service) = 0;
     virtual void serviceTires(LList<serviceHistory> *service) = 0;
-
-    // void serviceEngine(LList<serviceHistory> *service) {
-    //     if (this->mileage > 500) {
-    //         serviceHistory newCheckpoint(this->type, this->model, this->plate, this->mileage);
-    //         newCheckpoint.note = "Change Engine";
-    //         service->add(newCheckpoint);
-            
-    //         //system("clear");
-    //         cout << "The ID of this service is: " << newCheckpoint.checkpointID << "\n";
-    //         cout << "The mileage before service is: " << this->mileage << "\n";
-    //         cout << "This car has run more than 500km! Change engine for the vehicle.\n";
-    //         cout << "Mileage has been reduced 500 units\n";
-    //         cout << "____________________________\n";
-    //         this->mileage -= 500;
-    //     }
-    //     else cout << "This vehicle does not need to change Engine\n";
-    //     cout << "____________________________\n";
-    // };
-    // void serviceTransmission(LList<serviceHistory> *service) {
-    //     if (this->mileage > 700) {
-    //         serviceHistory newCheckpoint(this->type, this->model, this->plate, this->mileage);
-    //         newCheckpoint.note = "Change Transmission";
-    //         service->add(newCheckpoint);
-            
-    //         //system("clear");
-    //         cout << "The ID of this service is: " << newCheckpoint.checkpointID << "\n";
-    //         cout << "The mileage before service is: " << this->mileage << "\n";
-    //         cout << "This car has run more than 700km! Change transmission for the vehicle.\n";
-    //         cout << "Mileage has been reduced 700 units\n";
-    //         cout << "____________________________\n";
-    //         this->mileage -= 700;
-    //     }
-    //     else cout << "This vehicle does not need to change Transmission\n";
-    //     cout << "____________________________\n";
-    // };
-    // void serviceTires(LList<serviceHistory> *service) {
-    //     if (this->mileage > 100) {
-    //         serviceHistory newCheckpoint(this->type, this->model, this->plate, this->mileage);
-    //         newCheckpoint.note = "Change Tires";
-    //         service->add(newCheckpoint);
-            
-    //         //system("clear");
-    //         cout << "The ID of this service is: " << newCheckpoint.checkpointID << "\n";
-    //         cout << "The mileage before service is: " << this->mileage << "\n";
-    //         cout << "This car has run more than 100km! Change tires for the vehicle.\n";
-    //         cout << "Mileage has been reduced 100 units\n";
-    //         cout << "____________________________\n";
-    //         this->mileage -= 100;
-    //     }
-    //     else cout << "This vehicle does not need to change Tires\n";
-    //     cout << "____________________________\n";
-    // };
 };
 
 //INHERITED CLASSES
@@ -811,8 +743,11 @@ void CarRentalManagement::createContract() {
     case 1:
     {
         system("clear");
-        cout << "This is a Convertible Fleet!\n";
-        cout << "============================\n";
+        cout << endl;
+        cout << "========================================\n";
+        cout << "=    This is the Convertible Fleet     =\n";
+        cout << "========================================\n";
+        cout << endl;
         cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
         LList<Convertible>::Node *tmp = new LList<Convertible>::Node();
         tmp = convertibleFleet->head;
@@ -836,8 +771,11 @@ void CarRentalManagement::createContract() {
     case 2:
     {
         system("clear");
-        cout << "This is a Sedan Fleet!\n";
-        cout << "============================\n";
+        cout << endl;
+        cout << "========================================\n";
+        cout << "=        This is the Sedan Fleet       =\n";
+        cout << "========================================\n";
+        cout << endl;
         cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
         LList<Sedan>::Node *tmp = new LList<Sedan>::Node();
         tmp = sedanFleet->head;
@@ -861,8 +799,11 @@ void CarRentalManagement::createContract() {
     case 3:
     {
         system("clear");
-        cout << "This is a SUV Fleet!\n";
-        cout << "============================\n";
+        cout << endl;
+        cout << "========================================\n";
+        cout << "=         This is the SUV Fleet        =\n";
+        cout << "========================================\n";
+        cout << endl;
         cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
         LList<SUV>::Node *tmp = new LList<SUV>::Node();
         tmp = suvFleet->head;
