@@ -157,8 +157,10 @@ class Convertible : public Vehicle {
             cout << "____________________________\n";
             this->mileage -= 500;
         }
-        else cout << "This vehicle does not need to change Engine\n";
-        cout << "____________________________\n";
+        else {
+            cout << "This vehicle does not need to change Engine\n";
+            cout << "____________________________\n";
+        }
     };
     void serviceTransmission(LList<serviceHistory> *service) {
         if (this->mileage > 700) {
@@ -174,8 +176,10 @@ class Convertible : public Vehicle {
             cout << "____________________________\n";
             this->mileage -= 700;
         }
-        else cout << "This vehicle does not need to change Transmission\n";
-        cout << "____________________________\n";
+        else {
+             cout << "This vehicle does not need to change Transmission\n";
+            cout << "____________________________\n";
+        }
     };
     void serviceTires(LList<serviceHistory> *service) {
         if (this->mileage > 100) {
@@ -191,8 +195,10 @@ class Convertible : public Vehicle {
             cout << "____________________________\n";
             this->mileage -= 100;
         }
-        else cout << "This vehicle does not need to change Tires\n";
-        cout << "____________________________\n";
+        else {
+            cout << "This vehicle does not need to change Tires\n";
+            cout << "____________________________\n";
+        }
     };
 };
 
@@ -231,8 +237,10 @@ class Sedan : public Vehicle {
             cout << "____________________________\n";
             this->mileage -= 500;
         }
-        else cout << "This vehicle does not need to change Engine\n";
-        cout << "____________________________\n";
+        else {
+            cout << "This vehicle does not need to change Engine\n";
+            cout << "____________________________\n";
+        } 
     };
     void serviceTransmission(LList<serviceHistory> *service) {
         if (this->mileage > 700) {
@@ -248,8 +256,10 @@ class Sedan : public Vehicle {
             cout << "____________________________\n";
             this->mileage -= 700;
         }
-        else cout << "This vehicle does not need to change Transmission\n";
-        cout << "____________________________\n";
+        else {
+            cout << "This vehicle does not need to change Transmission\n";
+            cout << "____________________________\n";
+        }
     };
     void serviceTires(LList<serviceHistory> *service) {
         if (this->mileage > 100) {
@@ -265,8 +275,10 @@ class Sedan : public Vehicle {
             cout << "____________________________\n";
             this->mileage -= 100;
         }
-        else cout << "This vehicle does not need to change Tires\n";
-        cout << "____________________________\n";
+        else {
+            cout << "This vehicle does not need to change Tires\n";
+            cout << "____________________________\n";      
+        } 
     };
 };
 
@@ -304,8 +316,10 @@ class SUV : public Vehicle {
             cout << "____________________________\n";
             this->mileage -= 500;
         }
-        else cout << "This vehicle does not need to change Engine\n";
-        cout << "____________________________\n";
+        else {
+            cout << "This vehicle does not need to change Engine\n";
+            cout << "____________________________\n";
+        }
     };
     void serviceTransmission(LList<serviceHistory> *service) {
         if (this->mileage > 700) {
@@ -321,8 +335,10 @@ class SUV : public Vehicle {
             cout << "____________________________\n";
             this->mileage -= 700;
         }
-        else cout << "This vehicle does not need to change Transmission\n";
-        cout << "____________________________\n";
+        else {
+            cout << "This vehicle does not need to change Transmission\n";
+            cout << "____________________________\n";
+        }
     };
     void serviceTires(LList<serviceHistory> *service) {
         if (this->mileage > 100) {
@@ -338,8 +354,10 @@ class SUV : public Vehicle {
             cout << "____________________________\n";
             this->mileage -= 100;
         }
-        else cout << "This vehicle does not need to change Tires\n";
-        cout << "____________________________\n";
+        else {
+            cout << "This vehicle does not need to change Tires\n";
+            cout << "____________________________\n";
+        }
     };
 };
 
@@ -464,12 +482,12 @@ CarRentalManagement::CarRentalManagement() {
 }
 
 CarRentalManagement::~CarRentalManagement() {
-    delete convertibleFleet;
-    delete sedanFleet;
-    delete suvFleet;
-    delete service;
-    //delete customerList;
-    delete contractList;
+    if(convertibleFleet) delete convertibleFleet;
+    if(sedanFleet) delete sedanFleet;
+    if(suvFleet) delete suvFleet;
+    if(service) delete service;
+    //if(customerList)delete customerList;
+    if(contractList) delete contractList;
 }
 
 void CarRentalManagement::addConv() { 
@@ -590,8 +608,7 @@ void CarRentalManagement::printFleet() {
                 cout << "========================================\n";
                 cout << endl;
                 cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
-                LList<Convertible>::Node *tmp = new LList<Convertible>::Node();
-                tmp = convertibleFleet->head;
+                LList<Convertible>::Node *tmp = convertibleFleet->head;
 
                 for (int i = 0; i < convertibleFleet->size; i++) {
                     cout << i + 1 << "\t" << tmp->getData().model << "\t" << tmp->getData().plate
@@ -605,7 +622,6 @@ void CarRentalManagement::printFleet() {
 
                     tmp = tmp->next;
                 }
-                delete tmp;
                 break;
             }
             case 2:
@@ -617,8 +633,7 @@ void CarRentalManagement::printFleet() {
                 cout << "========================================\n";
                 cout << endl;
                 cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
-                LList<Sedan>::Node *tmp = new LList<Sedan>::Node();
-                tmp = sedanFleet->head;
+                LList<Sedan>::Node *tmp = sedanFleet->head;
 
                 for (int i = 0; i < sedanFleet->size; i++) {
                     cout << i + 1 << "\t" << tmp->getData().model << "\t" << tmp->getData().plate
@@ -632,7 +647,6 @@ void CarRentalManagement::printFleet() {
 
                     tmp = tmp->next;
                 }
-                delete tmp;
                 break;
             }
             case 3:
@@ -644,8 +658,7 @@ void CarRentalManagement::printFleet() {
                 cout << "========================================\n";
                 cout << endl;
                 cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
-                LList<SUV>::Node *tmp = new LList<SUV>::Node();
-                tmp = suvFleet->head;
+                LList<SUV>::Node *tmp = suvFleet->head;
 
                 for (int i = 0; i < suvFleet->size; i++) {
                     cout << i + 1 << "\t" << tmp->getData().model << "\t" << tmp->getData().plate
@@ -659,7 +672,6 @@ void CarRentalManagement::printFleet() {
 
                     tmp = tmp->next;
                 }
-                delete tmp;
                 break;
             }
             case 4:
@@ -671,11 +683,10 @@ void CarRentalManagement::printFleet() {
 };
 
 void CarRentalManagement::serviceFleet() {
-    LList<Convertible>::Node *tmp = new LList<Convertible>::Node();
-    LList<Sedan>::Node *tmp2 = new LList<Sedan>::Node();
-    LList<SUV>::Node *tmp3 = new LList<SUV>::Node();
+    LList<Convertible>::Node *tmp = convertibleFleet->head;
+    LList<Sedan>::Node *tmp2 = sedanFleet->head;
+    LList<SUV>::Node *tmp3 = suvFleet->head;
 
-    tmp = convertibleFleet->head;
     cout << "Checking Convertible fleet...\n";
     cout << "============================\n";
     for (int i = 0; i < convertibleFleet->size; i++) {
@@ -687,7 +698,6 @@ void CarRentalManagement::serviceFleet() {
     cout << "Done check Convertible fleet...\n";
     cout << "============================\n";
 
-    tmp2 = sedanFleet->head;
     cout << "Checking Sedan fleet...\n";
     cout << "============================\n";
     for (int i = 0; i < sedanFleet->length(); i++) {
@@ -699,7 +709,6 @@ void CarRentalManagement::serviceFleet() {
     cout << "Done check Sedan fleet...\n";
     cout << "============================\n";
 
-    tmp3 = suvFleet->head;
     cout << "Checking SUV fleet...\n";
     cout << "============================\n";
     for (int i = 0; i < suvFleet->length(); i++) {
@@ -710,10 +719,6 @@ void CarRentalManagement::serviceFleet() {
     }
     cout << "Done check SUV fleet...\n";
     cout << "============================\n";
-
-    delete tmp;
-    delete tmp2;
-    delete tmp3;
 };
 
 void CarRentalManagement::printServiceHistory() {
@@ -725,15 +730,13 @@ void CarRentalManagement::printServiceHistory() {
     cout << endl;
     cout << "Service ID\tCar Type\tModel\tPlate\tMileage run\tNote\n";
     cout << "------------------------------------------------------------------------------------\n";
-    LList<serviceHistory>::Node *tmp = new LList<serviceHistory>::Node();
-    tmp = service->head;
+    LList<serviceHistory>::Node *tmp = service->head;
     for (int i = 0; i < service->size; i++)
     {
         cout << tmp->getData().checkpointID << setw(10) << tmp->getData().type << "\t" << tmp->getData().model
              << "\t" << tmp->getData().plate << "\t" << tmp->getData().checkpoint << setw(10) << tmp->getData().note << "\n";
         tmp = tmp->next;
     }
-    delete tmp;
 }
 
 void CarRentalManagement::createContract() {
@@ -770,8 +773,7 @@ void CarRentalManagement::createContract() {
         cout << "========================================\n";
         cout << endl;
         cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
-        LList<Convertible>::Node *tmp = new LList<Convertible>::Node();
-        tmp = convertibleFleet->head;
+        LList<Convertible>::Node *tmp = convertibleFleet->head;
 
         for (int i = 0; i < convertibleFleet->size; i++)
         {
@@ -786,7 +788,6 @@ void CarRentalManagement::createContract() {
 
             tmp = tmp->next;
         }
-        delete tmp;
         break;
     }
     case 2:
@@ -798,8 +799,7 @@ void CarRentalManagement::createContract() {
         cout << "========================================\n";
         cout << endl;
         cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
-        LList<Sedan>::Node *tmp = new LList<Sedan>::Node();
-        tmp = sedanFleet->head;
+        LList<Sedan>::Node *tmp = sedanFleet->head;
 
         for (int i = 0; i < sedanFleet->size; i++)
         {
@@ -814,7 +814,6 @@ void CarRentalManagement::createContract() {
 
             tmp = tmp->next;
         }
-        delete tmp;
         break;
     }
     case 3:
@@ -826,8 +825,7 @@ void CarRentalManagement::createContract() {
         cout << "========================================\n";
         cout << endl;
         cout << "No.\tModel\tPlate\tMileage\tSits\tPrice\tStatus\n";
-        LList<SUV>::Node *tmp = new LList<SUV>::Node();
-        tmp = suvFleet->head;
+        LList<SUV>::Node *tmp = suvFleet->head;
 
         for (int i = 0; i < suvFleet->size; i++)
         {
@@ -842,7 +840,6 @@ void CarRentalManagement::createContract() {
 
             tmp = tmp->next;
         }
-        delete tmp;
         break;
     }
     }
@@ -860,8 +857,7 @@ void CarRentalManagement::createContract() {
 
     //Update the status of the vehicle & take carInfo
     if(fleetChoice == 1) {
-        LList<Convertible>::Node *tmp = new LList<Convertible>::Node();
-        tmp = convertibleFleet->head;
+        LList<Convertible>::Node *tmp = convertibleFleet->head;
         for (int i = 0; i < choice - 1; i++)
         {
             tmp = tmp->next;
@@ -873,7 +869,6 @@ void CarRentalManagement::createContract() {
         newCar.mileage = tmp->getData().mileage;
         newCar.sits = tmp->getData().sits;
         newCar.price = tmp->getData().price;
-        delete tmp;
     } else if(fleetChoice == 2) {
         LList<Sedan>::Node *tmp = new LList<Sedan>::Node();
         tmp = sedanFleet->head;
@@ -888,10 +883,8 @@ void CarRentalManagement::createContract() {
         newCar.mileage = tmp->getData().mileage;
         newCar.sits = tmp->getData().sits;
         newCar.price = tmp->getData().price;
-        delete tmp;
     } else {
-        LList<SUV>::Node *tmp = new LList<SUV>::Node();
-        tmp = suvFleet->head;
+        LList<SUV>::Node *tmp = suvFleet->head;
         for (int i = 0; i < choice - 1; i++)
         {
             tmp = tmp->next;
@@ -903,7 +896,6 @@ void CarRentalManagement::createContract() {
         newCar.mileage = tmp->getData().mileage;
         newCar.sits = tmp->getData().sits;
         newCar.price = tmp->getData().price;
-        delete tmp;
     }
 
     //Create contract
